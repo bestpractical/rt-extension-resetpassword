@@ -1,0 +1,11 @@
+abstract: RT Extension-ResetPassword Extension
+distribution_type: module
+generated_by: Module::Install version 0.61
+license: unknown
+name: RT-Extension-ResetPassword
+no_index: 
+  directory: 
+    - html
+    - inc
+    - t
+version: 0.01

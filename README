@@ -1,0 +1,21 @@
+This extension for RT adds a new "Forgot your password?" link to the front
+of your RT instance. Any user can request that RT send them a password
+reset token by email.  RT will send the user a one-time URL which he or
+she can use to reset her password. This extension allows _all_ users to
+reset their passwords by email. There isn't yet an option to only allow
+staff users or non-staff users to reset their passwords.
+
+This extension should be compatible with RT 3.4 and RT 3.6.
+
+To install this extension:
+
+perl Makefile.PL
+make install
+
+Copyright 2006 Best Practical Solutions, LLC. 
+
+This software is distributed under the same license as Perl 5.8.8.
+
+For commercial support, please contact sales@bestpractical.com
+
+

@@ -66,7 +66,7 @@ if ($ARGS{'Email'} ) {
     $u->LoadByCols(EmailAddress => $ARGS{'Email'});
     if ($u->id) {
     my $token = Digest::MD5->new()->add( $u->id, $u->__Value('Password'),
-        $RT::DatabasePassword, $u->LastUpdated, '/NoAuth/ResetPassword/Reset')->hexdigest();
+    $RT::DatabasePassword, $u->LastUpdated, @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset')->hexdigest();
 
     my $msg = <<EOF;
 Greetings,

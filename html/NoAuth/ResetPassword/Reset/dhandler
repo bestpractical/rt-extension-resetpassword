@@ -13,7 +13,7 @@ $u->LoadByCols( id => $id );
 if ( $u->id ) {
     $token = Digest::MD5->new()->add( $u->id, $u->__Value('Password'),
         $RT::DatabasePassword, $u->LastUpdated,
-        '/NoAuth/ResetPassword/Reset' )->hexdigest();
+        @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset' )->hexdigest();
 }
 else {
     push @results,

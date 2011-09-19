@@ -20,8 +20,8 @@ To install this extension:
 perl Makefile.PL
 make install
 
-If you are running RT 3.8, you must add RT-Extension-ResetPassword
-to your @Plugins in your RT_SiteConfig
+If you are running RT 3.8 or later, you must add RT-Extension-
+ResetPassword to your @Plugins in your RT_SiteConfig
 
 Set(@Plugins, qw(RT::Extension::ResetPassword Your::Other::Extensions));
 

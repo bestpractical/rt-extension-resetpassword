@@ -94,6 +94,3 @@
 ^\w$
 \.ttc$
 \.pmc$
-
-README.pod
-RT-Extension-ResetPassword-*

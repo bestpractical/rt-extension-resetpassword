@@ -7,9 +7,10 @@ our $VERSION = '0.05';
 This extension for RT adds a new "Forgot your password?" link to the front
 of your RT instance. Any user can request that RT send them a password
 reset token by email.  RT will send the user a one-time URL which he or
-she can use to reset her password. This extension allows _all_ users to
-reset their passwords by email. There isn't yet an option to only allow
-staff users or non-staff users to reset their passwords.
+she can use to reset her password. This extension allows only users that
+already have passwords reset their passwords by email.
+There isn't yet an option to only allow privileged or unpriviliged users
+to reset their passwords.
 
 =head1 INSTALL
 

@@ -64,7 +64,7 @@ my $title = loc("Reset your password");
 if ($ARGS{'Email'} ) {
     my $u = RT::User->new($RT::SystemUser);
     $u->LoadByCols(EmailAddress => $ARGS{'Email'});
-    if ($u->id and $u->HasPassword) {
+    if ($u->id and $u->HasPassword and not $u->Disabled) {
     my $token = Digest::MD5->new()->add( $u->id, $u->__Value('Password'),
     $RT::DatabasePassword, $u->LastUpdated, @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset')->hexdigest();
 
@@ -86,6 +86,8 @@ RT::Interface::Email::MailError( To => $u->EmailAddress, From => $RT::OwnerEmail
 
 
 push @actions, loc("RT has sent you an email message with instructions about how to reset your password");
+} elsif ($u->id and $u->Disabled) {
+push @actions, loc("You can't reset your password because your user is disabled.");
 } elsif ($u->id) {
 push @actions, loc("You can't reset your password as you don't already have one.");
 } else {

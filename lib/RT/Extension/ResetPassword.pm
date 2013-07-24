@@ -20,6 +20,7 @@ To install this extension:
 
     perl Makefile.PL
     make install
+    make initdb # first time only, not on upgrades
 
 If you are running RT 3.8 or later, you must add RT-Extension-
 ResetPassword to your @Plugins in your RT_SiteConfig

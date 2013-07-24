@@ -61,37 +61,40 @@ my @actions;
 
 my $title = loc("Reset your password");
 
-if ($ARGS{'Email'} ) {
+if ($ARGS{'Email'}) {
     my $u = RT::User->new($RT::SystemUser);
     $u->LoadByCols(EmailAddress => $ARGS{'Email'});
     if ($u->id and $u->HasPassword and not $u->Disabled) {
-    my $token = Digest::MD5->new()->add( $u->id, $u->__Value('Password'),
-    $RT::DatabasePassword, $u->LastUpdated, @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset')->hexdigest();
+        my $token = Digest::MD5->new()->add(
+            $u->id,
+            $u->__Value('Password'),
+            $RT::DatabasePassword,
+            $u->LastUpdated,
+            @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset'
+        )->hexdigest();
 
-    my ($status, $msg) = RT::Interface::Email::SendEmailUsingTemplate(
-        To        => $u->EmailAddress,
-        Template  => 'PasswordReset',
-        Arguments => {
-            Token => $token,
-            User  => $u,
-        },
-    );
+        my ($status, $msg) = RT::Interface::Email::SendEmailUsingTemplate(
+            To        => $u->EmailAddress,
+            Template  => 'PasswordReset',
+            Arguments => {
+                Token => $token,
+                User  => $u,
+            },
+        );
 
-    if ($status) {
-        push @actions, loc("RT has sent you an email message with instructions about how to reset your password");
-        RT->Logger->info("Password reset token send to " . $u->EmailAddress);
+        if ($status) {
+            push @actions, loc("RT has sent you an email message with instructions about how to reset your password");
+            RT->Logger->info("Password reset token send to " . $u->EmailAddress);
+        } else {
+            push @actions, loc("Failed to send password reset token, please contact your RT administrator.");
+            RT->Logger->error("Failed to send password reset token to " . $u->EmailAddress . ": $msg");
+        }
+    } elsif ($u->id and $u->Disabled) {
+        push @actions, loc("You can't reset your password because your user is disabled.");
+    } elsif ($u->id) {
+        push @actions, loc("You can't reset your password as you don't already have one.");
     } else {
-        push @actions, loc("Failed to send password reset token, please contact your RT administrator.");
-        RT->Logger->error("Failed to send password reset token to " . $u->EmailAddress . ": $msg");
+        push @actions, loc("RT couldn't find a user with that email address. Give it another try?");
     }
-} elsif ($u->id and $u->Disabled) {
-push @actions, loc("You can't reset your password because your user is disabled.");
-} elsif ($u->id) {
-push @actions, loc("You can't reset your password as you don't already have one.");
-} else {
-push @actions, loc("RT couldn't find a user with that email address. Give it another try?");
-
 }
-}
-
 </%INIT>

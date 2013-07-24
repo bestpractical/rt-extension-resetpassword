@@ -68,24 +68,22 @@ if ($ARGS{'Email'} ) {
     my $token = Digest::MD5->new()->add( $u->id, $u->__Value('Password'),
     $RT::DatabasePassword, $u->LastUpdated, @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset')->hexdigest();
 
-    my $msg = <<EOF;
-Greetings,
+    my ($status, $msg) = RT::Interface::Email::SendEmailUsingTemplate(
+        To        => $u->EmailAddress,
+        Template  => 'PasswordReset',
+        Arguments => {
+            Token => $token,
+            User  => $u,
+        },
+    );
 
-Someone at @{[$ENV{'REMOTE_ADDR'}]} requested that RT send you this message
-allowing you to reset your password. If you didn't request this message, please
-notify your RT administrator immediately.
-
-To reset your password, click on the following URL and enter your new password:
-
-@{[$RT::WebURL]}/NoAuth/ResetPassword/Reset/@{[$token]}/@{[$u->id]}
-
-
-EOF
-
-RT::Interface::Email::MailError( To => $u->EmailAddress, From => $RT::OwnerEmail, Subject => 'RT Password Reset Request', Explanation => $msg, LogLevel=> 'info');
-
-
-push @actions, loc("RT has sent you an email message with instructions about how to reset your password");
+    if ($status) {
+        push @actions, loc("RT has sent you an email message with instructions about how to reset your password");
+        RT->Logger->info("Password reset token send to " . $u->EmailAddress);
+    } else {
+        push @actions, loc("Failed to send password reset token, please contact your RT administrator.");
+        RT->Logger->error("Failed to send password reset token to " . $u->EmailAddress . ": $msg");
+    }
 } elsif ($u->id and $u->Disabled) {
 push @actions, loc("You can't reset your password because your user is disabled.");
 } elsif ($u->id) {

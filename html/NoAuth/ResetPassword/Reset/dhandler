@@ -68,7 +68,7 @@ else {
     <td class="value"><input name="password" type="password"></td>
   </tr>
   <tr>
-    <td class="label"><label name="password2"><&|/l&>Once more</&>:</label></td>
+    <td class="label"><label name="password2"><&|/l&>Retype Password</&>:</label></td>
     <td class="value"><input name="password2" type="password"></td>
   </tr>
 </table>

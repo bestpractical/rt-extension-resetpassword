@@ -1,6 +1,7 @@
 Revision history for Perl module RT::Extension::ResetPassword
 
 0.06
+    - Added pod abstract (which MetaCPAN, search.cpan.org, etc expect to find)
     - Added Changes file, populated from git log comments
 
 0.05 2012-02-07

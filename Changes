@@ -1,0 +1,19 @@
+Revision history for Perl module RT::Extension::ResetPassword
+
+0.06
+    - Added pod abstract (which MetaCPAN, search.cpan.org, etc expect to find)
+    - Added Changes file, populated from git log comments
+
+0.05 2012-02-07
+    - password reset only for user with password
+    - don't allow requests for disabled users
+
+0.04 2011-09-19
+    - Add a gitignore and move README into lib
+    - Update MI::RTx
+      This avoids needing RTHOME or a prompt to install on RT4
+    - mention RT4
+
+0.03 2009-06-24
+    - First release to CPAN
+

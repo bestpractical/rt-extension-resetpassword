@@ -5,6 +5,10 @@ use warnings;
 
 our $VERSION = '0.05';
 
+=head1 NAME
+
+RT::Extension::ResetPassword - add "forgot your password?" link to RT instance
+
 =head1 DESCRIPTION
 
 This extension for RT adds a new "Forgot your password?" link to the front

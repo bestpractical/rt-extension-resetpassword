@@ -1,6 +1,8 @@
 Revision history for Perl module RT::Extension::ResetPassword
 
-0.06
+0.06 2014-03-10
+    - Switch to using a ResetPassword Template rather than a hardcoded message
+      Contributed by Christian Loos
     - Added pod abstract (which MetaCPAN, search.cpan.org, etc expect to find)
     - Added Changes file, populated from git log comments
 

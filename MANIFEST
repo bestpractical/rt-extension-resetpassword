@@ -1,3 +1,4 @@
+etc/initialdata
 html/Callbacks/RT-Extension-ResetPassword/Elements/Login/Default
 html/NoAuth/ResetPassword/Request.html
 html/NoAuth/ResetPassword/Reset/dhandler
@@ -10,6 +11,7 @@ inc/Module/Install/ManifestSkip.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/ReadmeFromPod.pm
 inc/Module/Install/RTx.pm
+inc/Module/Install/RTx/Factory.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/RT/Extension/ResetPassword.pm

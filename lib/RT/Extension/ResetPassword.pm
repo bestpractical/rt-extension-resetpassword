@@ -1,5 +1,8 @@
 package RT::Extension::ResetPassword;
 
+use strict;
+use warnings;
+
 our $VERSION = '0.05';
 
 =head1 DESCRIPTION
@@ -20,6 +23,7 @@ To install this extension:
 
     perl Makefile.PL
     make install
+    make initdb # first time only, not on upgrades
 
 If you are running RT 3.8 or later, you must add RT-Extension-
 ResetPassword to your @Plugins in your RT_SiteConfig
@@ -30,10 +34,19 @@ Make sure you clear your mason cache before restarting apache
 rm -rf /opt/rt3/var/mason_data/obj/*
 apachectl restart
 
+=head1 AUTHOR
 
-Copyright 2006-2011 Best Practical Solutions, LLC. 
-This software is distributed under the same license as Perl 5.8.8.
-For commercial support, please contact sales@bestpractical.com
+Jesse Vincent <jesse at bestpractical.com>
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright 2006-2013 Best Practical Solutions, LLC.
+
+This program is free software; you can redistribute it and/or modify it
+under the terms of either: the GNU General Public License as published
+by the Free Software Foundation; or the Artistic License.
+
+See http://dev.perl.org/licenses/ for more information.
 
 =cut
 

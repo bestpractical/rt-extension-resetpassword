@@ -1,23 +1,24 @@
 ---
 abstract: 'RT Extension-ResetPassword Extension'
 author:
-  - 'Jesse Vincent <jesse@bestpractical.com>'
+  - 'Jesse Vincent <jesse at bestpractical.com>'
 build_requires:
   ExtUtils::MakeMaker: 6.36
 configure_requires:
   ExtUtils::MakeMaker: 6.36
 distribution_type: module
 dynamic_config: 1
-generated_by: 'Module::Install version 1.04'
-license: perl
+generated_by: 'Module::Install version 1.06'
+license: gpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: RT-Extension-ResetPassword
 no_index:
   directory:
+    - etc
     - html
     - inc
 resources:
-  license: http://dev.perl.org/licenses/
+  license: http://opensource.org/licenses/gpl-license.php
 version: 0.05

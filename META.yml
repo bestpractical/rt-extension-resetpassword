@@ -1,5 +1,5 @@
 ---
-abstract: 'RT Extension-ResetPassword Extension'
+abstract: "add \"forgot your password?\" link to RT instance"
 author:
   - 'Jesse Vincent <jesse at bestpractical.com>'
 build_requires:

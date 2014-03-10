@@ -1,3 +1,7 @@
+NAME
+    RT::Extension::ResetPassword - add "forgot your password?" link to RT
+    instance
+
 DESCRIPTION
     This extension for RT adds a new "Forgot your password?" link to the
     front of your RT instance. Any user can request that RT send them a

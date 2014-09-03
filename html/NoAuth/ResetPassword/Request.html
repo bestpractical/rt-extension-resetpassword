@@ -91,10 +91,17 @@ if ($ARGS{'Email'}) {
         }
     } elsif ($u->id and $u->Disabled) {
         push @actions, loc("You can't reset your password because your user is disabled.");
+        RT->Logger->warning("Disabled user " . $u->Name . " attempted to reset password");
     } elsif ($u->id) {
         push @actions, loc("You can't reset your password as you don't already have one.");
+        RT->Logger->warning("User " . $u->Name . " with no password attempted a password reset")
     } else {
         push @actions, loc("RT couldn't find a user with that email address. Give it another try?");
+        RT->Logger->warning("Password reset attempted for non-existent user " . $u->EmailAddress);
+    }
+    if(RT->Config->Get("HidePasswordResetErrors") == 1) {
+        pop @actions;
+        push @actions, loc("RT has sent you an email message with instructions about how to reset your password");
     }
 }
 </%INIT>

@@ -73,6 +73,13 @@ The contents of the email sent to users can be found in the global
 PasswordReset template (do not confuse this with the core PasswordChange
 template).
 
+If you want to prevent unauthorised visitors from determining what user
+accounts exist and whether they are disabled, set HidePasswordResetErrors
+to 1 in your RT configuration; then any password reset request will
+appear to the requestor to have resulted in an email being sent, thus
+not revealing the reasons for any failure. All failures will still be
+logged with an appropriate diagnostic message.
+
 =head1 AUTHOR
 
 Jesse Vincent <jesse at bestpractical.com>

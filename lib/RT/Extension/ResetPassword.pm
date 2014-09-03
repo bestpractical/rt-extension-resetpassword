@@ -3,7 +3,7 @@ package RT::Extension::ResetPassword;
 use strict;
 use warnings;
 
-our $VERSION = '0.06';
+our $VERSION = '1.00';
 
 =head1 NAME
 
@@ -47,7 +47,7 @@ If you are using RT 4.2 or greater, add this line:
 
     Plugin('RT::Extension::ResetPassword');
 
-For RT 3.8 and 4.0, add this line:
+For RT 4.0, add this line:
 
     Set(@Plugins, qw(RT::Extension::ResetPassword));
 
@@ -82,17 +82,25 @@ logged with an appropriate diagnostic message.
 
 =head1 AUTHOR
 
-Jesse Vincent <jesse at bestpractical.com>
+Best Practical Solutions, LLC E<lt>modules@bestpractical.comE<gt>
+
+=head1 BUGS
+
+All bugs should be reported via email to
+
+    L<bug-RT-Extension-ResetPassword@rt.cpan.org|mailto:bug-RT-Extension-ResetPassword@rt.cpan.org>
+
+or via the web at
+
+    L<rt.cpan.org|http://rt.cpan.org/Public/Dist/Display.html?Name=RT-Extension-ResetPassword>.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2006-2014 Best Practical Solutions, LLC.
+This software is Copyright (c) 2012-2014 by Best Practical Solutions, LLC
 
-This program is free software; you can redistribute it and/or modify it
-under the terms of either: the GNU General Public License as published
-by the Free Software Foundation; or the Artistic License.
+This is free software, licensed under:
 
-See http://dev.perl.org/licenses/ for more information.
+  The GNU General Public License, Version 2, June 1991
 
 =cut
 

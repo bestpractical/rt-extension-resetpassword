@@ -1,5 +1,8 @@
 Revision history for Perl module RT::Extension::ResetPassword
 
+1.01 2014-09-04
+ - Fix MANIFEST
+
 1.00 2014-09-03
  - Add a configuration parameter, HidePasswordResetErrors, to not leak
    if the email address is in use/

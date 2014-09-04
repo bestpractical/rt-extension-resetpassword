@@ -1,5 +1,8 @@
 Revision history for Perl module RT::Extension::ResetPassword
 
+1.02 2014-09-05
+ - Fix the log message for non-existant users
+
 1.01 2014-09-04
  - Fix MANIFEST
 

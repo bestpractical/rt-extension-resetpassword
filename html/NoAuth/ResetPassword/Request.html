@@ -97,7 +97,7 @@ if ($ARGS{'Email'}) {
         RT->Logger->warning("User " . $u->Name . " with no password attempted a password reset")
     } else {
         push @actions, loc("RT couldn't find a user with that email address. Give it another try?");
-        RT->Logger->warning("Password reset attempted for non-existent user " . $u->EmailAddress);
+        RT->Logger->warning("Password reset attempted for non-existent user " . $ARGS{'Email'});
     }
     if(RT->Config->Get("HidePasswordResetErrors") == 1) {
         pop @actions;

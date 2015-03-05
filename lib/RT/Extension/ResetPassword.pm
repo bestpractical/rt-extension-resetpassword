@@ -3,7 +3,7 @@ package RT::Extension::ResetPassword;
 use strict;
 use warnings;
 
-our $VERSION = '1.02';
+our $VERSION = '1.03';
 
 =head1 NAME
 

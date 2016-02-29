@@ -1,0 +1,68 @@
+#: html/NoAuth/ResetPassword/Reset/dhandler:75
+msgid "Change password"
+msgstr ""
+
+#: html/NoAuth/ResetPassword/Request.html:54
+msgid "Email address"
+msgstr "E-Mail Adresse"
+
+#: html/NoAuth/ResetPassword/Request.html:89
+msgid "Failed to send password reset token, please contact your RT administrator."
+msgstr "Fehler beim Passwort-Reset-Token senden, kontaktieren Sie bitte Ihren RT Administrator."
+
+#: html/Callbacks/RT-Extension-ResetPassword/Elements/Login/Default:2
+msgid "Forgot your password?"
+msgstr "Passwort vergessen?"
+
+#: html/NoAuth/ResetPassword/Reset/dhandler:29
+msgid "It looks like the URL you clicked on has expired or wasn't quite right. Maybe you didn't paste the whole thing?"
+msgstr "Es sieht aus als wenn die URL, die Sie aufgerufen haben, abgelaufen war oder nicht ganz richtig war. Vielleicht haben Sie nicht die ganze URL einfügen?"
+
+#: html/NoAuth/ResetPassword/Reset/dhandler:78
+msgid "Login"
+msgstr ""
+
+#: html/NoAuth/ResetPassword/Reset/dhandler:67
+msgid "New password"
+msgstr ""
+
+#: html/NoAuth/ResetPassword/Request.html:52
+msgid "RT can send you an email message with a link that will allow you to reset your password."
+msgstr "RT kann eine E-Mail mit einem Link senden, mit dem Sie Ihr Passwort zurücksetzen können."
+
+#: html/NoAuth/ResetPassword/Request.html:99
+msgid "RT couldn't find a user with that email address. Give it another try?"
+msgstr "RT kann einen Benutzer mit dieser E-Mail-Adresse nicht finden. Nochmal versuchen?"
+
+#: html/NoAuth/ResetPassword/Request.html:104 html/NoAuth/ResetPassword/Request.html:86
+msgid "RT has sent you an email message with instructions about how to reset your password"
+msgstr "RT hat eine E-Mail gesendet mit Anweisungen wie Sie Ihr Passwort zurücksetzen können"
+
+#: html/NoAuth/ResetPassword/Request.html:62 html/NoAuth/ResetPassword/Reset/dhandler:6
+msgid "Reset your password"
+msgstr "Passwort zurücksetzen"
+
+#: html/NoAuth/ResetPassword/Reset/dhandler:71
+msgid "Retype Password"
+msgstr ""
+
+#: html/NoAuth/ResetPassword/Request.html:55
+msgid "Send it!"
+msgstr "Senden!"
+
+#: html/NoAuth/ResetPassword/Reset/dhandler:20
+msgid "Something went wrong. Please contact your RT administrator."
+msgstr "Irgendwas ist falsch gelaufen. Kontaktieren Sie bitte Ihren RT Administrator."
+
+#: html/NoAuth/ResetPassword/Reset/dhandler:47
+msgid "The two passwords you typed didn't match."
+msgstr "Die beiden von Ihnen eingegebenen Passwörter stimmen nicht überein."
+
+#: html/NoAuth/ResetPassword/Request.html:96
+msgid "You can't reset your password as you don't already have one."
+msgstr "Sie können ihr Passwort nicht zurücksetzen, da Sie noch keines haben."
+
+#: html/NoAuth/ResetPassword/Request.html:93
+msgid "You can't reset your password because your user is disabled."
+msgstr "Sie können ihr Passwort nicht zurücksetzen, da ihr Benutzer deaktiviert ist."
+

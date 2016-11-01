@@ -1,5 +1,8 @@
 Revision history for Perl module RT::Extension::ResetPassword
 
+1.04 2016-11-01
+ - Update ENV reference to use the new RequestENV function
+
 1.03 2015-03-05
  - Fix a "Use of uninitialized value" warning
 

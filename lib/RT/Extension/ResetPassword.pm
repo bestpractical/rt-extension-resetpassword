@@ -3,7 +3,7 @@ package RT::Extension::ResetPassword;
 use strict;
 use warnings;
 
-our $VERSION = '1.03';
+our $VERSION = '1.04';
 
 =head1 NAME
 
@@ -18,6 +18,10 @@ she can use to reset her password. This extension allows only users that
 already have passwords reset their passwords by email.
 There isn't yet an option to only allow privileged or unpriviliged users
 to reset their passwords.
+
+=head1 RT VERSION
+
+Works with RT 4.0, 4.2, 4.4
 
 =head1 INSTALLATION
 
@@ -66,6 +70,14 @@ or add C<RT::Extension::ResetPassword> to your existing C<@Plugins> line.
 If you are upgrading from version 0.05, you will need to run C<make
 initdb> as documented in L<INSTALLATION> to install the Template used by
 this Extension.
+
+To run on RT 4.0 or 4.2, replace this line in the template:
+
+    { RT::Interface::Web::RequestENV('REMOTE_ADDR') }
+
+with this:
+
+    { $ENV{'REMOTE_ADDR'} }
 
 =head1 CONFIGURATION
 

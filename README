@@ -11,6 +11,9 @@ DESCRIPTION
     There isn't yet an option to only allow privileged or unpriviliged users
     to reset their passwords.
 
+RT VERSION
+    Works with RT 4.0, 4.2, 4.4
+
 INSTALLATION
     perl Makefile.PL
     make
@@ -46,6 +49,14 @@ UPGRADING
     If you are upgrading from version 0.05, you will need to run make initdb
     as documented in INSTALLATION to install the Template used by this
     Extension.
+
+    To run on RT 4.0 or 4.2, replace this line in the template:
+
+        { RT::Interface::Web::RequestENV('REMOTE_ADDR') }
+
+    with this:
+
+        { $ENV{'REMOTE_ADDR'} }
 
 CONFIGURATION
     The contents of the email sent to users can be found in the global

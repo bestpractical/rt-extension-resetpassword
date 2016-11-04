@@ -6,7 +6,7 @@
 
 Greetings,
 
-Someone at { RT::Interface::Web::RequestENV(\'REMOTE_ADDR\') } requested that RT send you this message
+Someone at { RT::Interface::Web::RequestENV(\'HTTP_X_FORWARDED_FOR\') || RT::Interface::Web::RequestENV(\'REMOTE_ADDR\') } requested that RT send you this message
 allowing you to reset your password. If you didn\'t request this message, please
 notify your RT administrator immediately.
 

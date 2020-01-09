@@ -65,22 +65,7 @@ if ($ARGS{'Email'}) {
     my $u = RT::User->new($RT::SystemUser);
     $u->LoadByCols(EmailAddress => $ARGS{'Email'});
     if ($u->id and $u->HasPassword and not $u->Disabled) {
-        my $token = Digest::MD5->new()->add(
-            $u->id,
-            $u->__Value('Password'),
-            $RT::DatabasePassword,
-            $u->LastUpdated,
-            @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset'
-        )->hexdigest();
-
-        my ($status, $msg) = RT::Interface::Email::SendEmailUsingTemplate(
-            To        => $u->EmailAddress,
-            Template  => 'PasswordReset',
-            Arguments => {
-                Token => $token,
-                User  => $u,
-            },
-        );
+        my ($status, $msg) = RT::Extension::ResetPassword::CreateTokenAndResetPassword($u);
 
         if ($status) {
             push @actions, loc("RT has sent you an email message with instructions about how to reset your password");

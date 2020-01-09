@@ -5,6 +5,28 @@ use warnings;
 
 our $VERSION = '1.04';
 
+sub CreateTokenAndResetPassword {
+    my $user = shift;
+
+    my $token = Digest::MD5->new()->add(
+        $user->id,
+        $user->__Value('Password'),
+        $RT::DatabasePassword,
+        $user->LastUpdated,
+        @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset'
+    )->hexdigest();
+
+    my ($status, $msg) = RT::Interface::Email::SendEmailUsingTemplate(
+        To        => $user->EmailAddress,
+        Template  => 'PasswordReset',
+        Arguments => {
+            Token => $token,
+            User  => $user,
+        },
+    );
+    return ($status, $msg);
+}
+
 =head1 NAME
 
 RT::Extension::ResetPassword - add "forgot your password?" link to RT instance

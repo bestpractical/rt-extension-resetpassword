@@ -1,0 +1,17 @@
+<%INIT>
+if ( ( $ARGS{'SendPasswordResetEmail'} || $session{'SendPasswordResetEmail'} ) && $User && $User->Id ) {
+    my ($ret, $msg) = RT::Extension::ResetPassword::CreateTokenAndResetPassword($User);
+    if ( $ret ) {
+        push @{$Results}, 'Password reset email passed to new user';
+    }
+    else {
+        RT::Logger->error( "$msg" );
+    }
+}
+delete $session{'SendPasswordResetEmail'};
+</%INIT>
+<%ARGS>
+$Results
+$User
+$ARGSRef
+</%ARGS>

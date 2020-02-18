@@ -8,6 +8,11 @@ our $VERSION = '1.04';
 sub CreateTokenAndResetPassword {
     my $user = shift;
 
+    unless ( $user && $user->Id ) {
+        RT::Logger->error( "Need to provide a loaded RT::User object for CreateTokenAndResetPassword." );
+        return;
+    }
+
     my $token = Digest::MD5->new()->add(
         $user->id,
         $user->__Value('Password'),

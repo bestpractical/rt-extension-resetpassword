@@ -49,7 +49,11 @@
 <h1><%$title%></h1>
 <& /Elements/ListActions, actions => \@actions  &>
 <p>
+% if ( $Mode eq 'create' ) {
+<&|/l&>Enter your email address to create a new account.</&>
+% } else {
 <&|/l&>RT can send you an email message with a link that will allow you to reset your password.</&>
+% }
 <form method="post" action="Request.html">
     <&|/l&>Email address</&>:<input name="Email" value="" />
     <input type="submit" class="button" value="<%loc('Send it!')%>" />
@@ -61,6 +65,10 @@
 my @actions;
 
 my $title = loc("Reset your password");
+
+if ( $Mode eq 'create' ) {
+    $title = loc("Create account");
+}
 
 if ($ARGS{'Email'}) {
     my $u = RT::User->new($RT::SystemUser);
@@ -136,3 +144,6 @@ if ($ARGS{'Email'}) {
     }
 }
 </%INIT>
+<%ARGS>
+$Mode => 'reset'
+</%ARGS>

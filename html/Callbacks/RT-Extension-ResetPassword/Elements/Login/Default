@@ -1,8 +1,8 @@
 % unless ( RT::Config->Get('DisableResetPasswordOnLogin') ) {
 <div id="lostpassword" class="input-row" style="text-align:right;clear:both;">
   <a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html?Title=<&|/l&>Reset your password</&>"><&|/l&>Forgot your password</&></a>
-% }
-% if ( RT::Config->Get('CreateNewUserAndSetPassword') ) {
+%   if ( RT::Config->Get('CreateNewUserAndSetPassword') ) {
   | <a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html?Title=<&|/l&>Create your password</&>"><&|/l&>New account</&></a>
+%   }
 % }
 </div>

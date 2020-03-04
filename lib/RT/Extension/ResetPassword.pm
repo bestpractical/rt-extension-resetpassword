@@ -41,10 +41,12 @@ RT::Extension::ResetPassword - add "forgot your password?" link to RT instance
 This extension for RT adds a new "Forgot your password?" link to the front
 of your RT instance. Any user can request that RT send them a password
 reset token by email.  RT will send the user a one-time URL which he or
-she can use to reset her password. This extension allows only users that
-already have passwords reset their passwords by email.
-There isn't yet an option to only allow privileged or unpriviliged users
-to reset their passwords.
+she can use to reset her password.
+
+It also adds a new option to the user admin page in RT for the RT admin
+to send a password reset email for new users or users who have forgotten
+their passwords. See below for options to enable this admin feature only
+and disable self-service features.
 
 =head1 RT VERSION
 
@@ -108,15 +110,16 @@ with this:
 
 =head1 CONFIGURATION
 
-** IMPORTANT **
-Do not use this extension if you use any form of external auth such as
-SAML, federated or OAUTH as RT does not have access to reset a password.
+This extension resets passwords managed by RT. It cannot reset
+passwords for RTs that use any configured external auth such as
+SAML, OAuth, LDAP, or Active Directory as RT does not have
+password reset connections in those external systems.
 
 The contents of the email sent to users can be found in the global
 PasswordReset template (do not confuse this with the core PasswordChange
 template).
 
-If you want to prevent unauthorised visitors from determining what user
+If you want to prevent unauthorized visitors from determining what user
 accounts exist and whether they are disabled, set HidePasswordResetErrors
 to 1 in your RT configuration; then any password reset request will
 appear to the requestor to have resulted in an email being sent, thus
@@ -134,37 +137,46 @@ a password for themselves by setting $AllowUsersWithoutPassword to 1. This can a
 any user to access the RT self service pages. This can be dangerous if the RT rights are
 not set-up correctly as users could see data they should not be able to.
 
-The $CreateNewUserAndSetPassword and $CreateNewUserAsPrivileged config options should only
-be used when access to the RT web UI is limited to trusted individuals. This usually means
-access to the web UI is restricted by a company firewall so that only users on the company
-network can access the UI and create new user records.
+The $CreateNewUserAndSetPassword and $CreateNewUserAsPrivileged config
+options should only be used when access to the RT web UI is limited.
+This usually means access to the web UI is restricted so that only users
+on the company network can access the UI and create new user records.
 
 =over 4
 
 =item C<$AllowUsersWithoutPassword>
 
-Setting this config option to true will allow existing users who do not have a password
-value to send themselves a reset password email and set a password.
+Setting this config option to true will allow existing users who do
+not have a password value to send themselves a reset password email
+and set a password.
 
 =item C<$CreateNewUserAsPrivileged>
 
-Set this config value to true if users creating a new account should default to privileged users.
-WARNING Setting this to true can be dangerous as it allows anyone to create a new priviledged user,
-usually privlidged users are given rights to edit and see information not desired to be public.
+Set this config value to true if users creating a new account should
+default to privileged users.
 
+B<WARNING> Setting this to true can be dangerous as it allows anyone to
+create a new priviledged user. Usually privlidged users are given rights
+to edit and see information not desired to be public.
 
 =item C<$CreateNewUserAndSetPassword>
 
-This configuration option determines if a nonexistant user can create an new user record.
-WARNING see the note about the danger of setting this to true and setting C<$CreateNewUserAsPrivileged>
-to true as well.
+This configuration option determines if a nonexistant user can create an
+new user record.
+
+B<WARNING> See the note about the danger of setting this to true and
+setting C<$CreateNewUserAsPrivileged> to true as well.
 
 =item C<$DisableResetPasswordOnLogin>
 
-Set this config value to true if you do not want the "forgot password" option to display on the login
-page.
+Set this config value to true if you do not want the "forgot password" option
+to display on the login page.
+
+This is useful if you want only the password reset email option on the RT
+user admin page, but no self-service options.
 
 =back
+
 =cut
 
 =head1 AUTHOR

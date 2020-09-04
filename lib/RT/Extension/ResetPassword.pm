@@ -3,6 +3,8 @@ package RT::Extension::ResetPassword;
 use strict;
 use warnings;
 
+use Digest::SHA qw(sha256_hex);
+
 our $VERSION = '1.06';
 
 sub CreateToken {
@@ -12,13 +14,14 @@ sub CreateToken {
         RT::Logger->error( "Need to provide a loaded RT::User object for CreateToken" );
         return undef;
     }
-    return Digest::MD5->new()->add(
+
+    return sha256_hex(
         $user->id,
         $user->__Value('Password'),
         $RT::DatabasePassword,
         $user->LastUpdated,
         @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset'
-        )->hexdigest();
+        );
 }
 
 sub CreateTokenAndResetPassword {

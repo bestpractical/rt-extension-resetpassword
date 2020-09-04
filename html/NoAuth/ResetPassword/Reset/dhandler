@@ -1,4 +1,6 @@
 <%init>
+use RT::Extension::ResetPassword;
+
 # The URL They're visitng
 # @{[$RT::WebURL]}/NoAuth/Reset/@{[$token]}/@{[$u->id]}
 my @results;
@@ -11,9 +13,7 @@ my $token;
 my $u = RT::User->new($RT::SystemUser);
 $u->LoadByCols( id => $id );
 if ( $u->id ) {
-    $token = Digest::MD5->new()->add( $u->id, $u->__Value('Password'),
-        $RT::DatabasePassword, $u->LastUpdated,
-        @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset' )->hexdigest();
+    $token = RT::Extension::ResetPassword::CreateToken($u) || '';
 }
 else {
     push @results,

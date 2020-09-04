@@ -5,21 +5,27 @@ use warnings;
 
 our $VERSION = '1.06';
 
-sub CreateTokenAndResetPassword {
+sub CreateToken {
     my $user = shift;
 
     unless ( $user && $user->Id ) {
-        RT::Logger->error( "Need to provide a loaded RT::User object for CreateTokenAndResetPassword." );
-        return;
+        RT::Logger->error( "Need to provide a loaded RT::User object for CreateToken" );
+        return undef;
     }
-
-    my $token = Digest::MD5->new()->add(
+    return Digest::MD5->new()->add(
         $user->id,
         $user->__Value('Password'),
         $RT::DatabasePassword,
         $user->LastUpdated,
         @{[$RT::WebPath]} . '/NoAuth/ResetPassword/Reset'
-    )->hexdigest();
+        )->hexdigest();
+}
+
+sub CreateTokenAndResetPassword {
+    my $user = shift;
+
+    my $token = CreateToken($user);
+    return unless $token;     # CreateToken will log error
 
     my ($status, $msg) = RT::Interface::Email::SendEmailUsingTemplate(
         To        => $user->EmailAddress,

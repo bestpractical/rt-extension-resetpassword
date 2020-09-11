@@ -27,6 +27,12 @@ sub CreateToken {
 sub CreateTokenAndResetPassword {
     my $user = shift;
 
+    # Update the LastUpdated time in the $user so that we can
+    # expire the password-change link that gets sent out.  We
+    # need to do this before we create the token because $user->LastUpdated
+    # is part of the token hash
+    $user->_SetLastUpdated();
+
     my $token = CreateToken($user);
     return unless $token;     # CreateToken will log error
 

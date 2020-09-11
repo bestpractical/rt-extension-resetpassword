@@ -21,6 +21,22 @@ else {
     $show_form = 0;
 }
 
+# Calculate time difference between now and when user object was updated
+my $age = $u->LastUpdatedObj->Diff;
+if (!defined($age)) {
+    # Could not get the time difference; make age negative which should
+    # be impossible; we'll catch it below
+    $age = -1000000;
+} else {
+    # The time difference returned by Diff should be negative, so correct
+    if ($age > 0) {
+        # Impossible... someone turned back the machine's clock
+        $age = -1000000;
+    } else {
+        $age = -1 * $age;
+    }
+}
+
 # If the token validation fails, throw them an error
 if ( $submitted_token ne $token ) {
     push @results,
@@ -30,7 +46,17 @@ if ( $submitted_token ne $token ) {
     $show_form = 0;
 }
 
-# if the validation succeeds, continue on
+# If the link has expired, throw the same error.  Default expiry time is 4 hours
+elsif ( ($age < 0) ||
+        ($age > (RT->Config->Get('PasswordChangeLinkExpirySeconds') || (4*60*60)))) {
+    push @results,
+        loc(
+        "It looks like the URL you clicked on has expired or wasn't quite right. Maybe you didn't paste the whole thing?"
+        );
+    $show_form = 0;
+}
+
+# Link is valid and has not expired
 else {
 
     # If they've supplied a new password twice, change it and redirect to home

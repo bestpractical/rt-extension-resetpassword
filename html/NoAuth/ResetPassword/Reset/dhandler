@@ -112,7 +112,7 @@ else {
 <input type ="submit" value ="<%loc('Change password')%>">
 </form>
 %}
-<a href="<%$RT::WebURL|n%>"><&|/l&>Login</&></a>
+<a href="<%$RT::WebURL|n%>"><&|/l&>Back to Login</&></a>
 % }
 </div>
 

@@ -55,6 +55,43 @@ else {
 <& /Elements/Header, Title => $title &>
 <div id="body" class="login-body">
 
+% if ( RT::Handle::cmp_version($RT::VERSION, '5.0.0') >= 0 ) {
+<& /Elements/ListActions, actions => \@results &>
+
+% if ($show_form) {
+<form action="<%$id%>" method="post" class="mx-auto max-width-sm">
+
+<&| /Widgets/TitleBox, hideable => 0, content_class => 'mx-auto col-12' &>
+  <div class="form-row">
+    <div class="label col-3">
+      <&|/l&>New password</&>:
+    </div>
+    <div class="value col-8">
+      <input name="password" type="password" class="form-control" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="label col-3">
+      <&|/l&>Retype Password</&>:
+    </div>
+    <div class="value col-8">
+      <input type="password" class="form-control" name="password2" size="16" autocomplete="off" />
+    </div>
+  </div>
+
+</&>
+  <div class="form-row">
+    <div class="col-12">
+      <a class="btn btn-primary float-left" href="<%$RT::WebURL|n%>"><&|/l&>Back to Login</&></a>
+      <input class="button btn btn-primary form-control float-right" type="submit" value="<%loc('Change password')%>" />
+    </div>
+  </div>
+
+</form>
+% }
+% }
+% else {
 <h1><%$title%></h1>
 <& /Elements/ListActions, actions => \@results  &>
 <p>
@@ -76,3 +113,7 @@ else {
 </form>
 %}
 <a href="<%$RT::WebURL|n%>"><&|/l&>Login</&></a>
+% }
+</div>
+
+<& /Elements/Footer, Menu => 0 &>

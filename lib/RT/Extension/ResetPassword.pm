@@ -5,6 +5,8 @@ use warnings;
 
 our $VERSION = '1.06';
 
+RT->AddStyleSheets("resetpassword.css");
+
 sub CreateTokenAndResetPassword {
     my $user = shift;
 

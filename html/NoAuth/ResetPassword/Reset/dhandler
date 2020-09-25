@@ -8,17 +8,59 @@ my $show_form    = 1;
 my $title        = loc('Reset your password');
 my $virtual_path = $m->dhandler_arg();
 my ( $submitted_token, $id ) = split( '/', $virtual_path );
-my $token;
-# Validate the token
-my $u = RT::User->new($RT::SystemUser);
-$u->LoadByCols( id => $id );
-if ( $u->id ) {
-    $token = RT::Extension::ResetPassword::CreateToken($u) || '';
+
+my $bland_error_message = loc(
+        "It looks like the URL you clicked on has expired or wasn't quite right. Maybe you didn't paste the whole thing?"
+);
+
+my $cookie_name = 'RTPasswdResetCookie';
+
+# If the token and ID are part of the URL path, set a cookie and redirect.
+# We do not want the original URL to accidentally leak info in the
+# Referrer field
+if ($submitted_token && $id) {
+    my $cookie = CGI::Cookie->new(
+        -name     => $cookie_name,
+        -value    => "$submitted_token/$id",
+        -path     => RT->Config->Get('WebPath'),
+        -secure   => (RT->Config->Get('WebSecureCookies') ? 1 : 0),
+        -httponly => (RT->Config->Get('WebHttpOnlyCookies') ? 1 : 0)
+        );
+    $r->err_headers_out->{'Set-Cookie'} = $cookie->as_string;
+    $r->status(302);
+    $m->redirect(RT->Config->Get('WebPath') . '/NoAuth/ResetPassword/Reset/',
+                 '302 found');
+    $m->abort;
 }
-else {
-    push @results,
-        loc("Something went wrong. Please contact your RT administrator.");
+
+# If we don't have a cookie, something's wrong
+my %cookies = CGI::Cookie->parse(RT::Interface::Web::RequestENV('HTTP_COOKIE'));
+
+if (!$cookies{$cookie_name}) {
+   push @results, $bland_error_message;
     $show_form = 0;
+}
+if ($show_form) {
+    ( $submitted_token, $id ) = split( '/', $cookies{$cookie_name}->value());
+    if (!$submitted_token || !$id) {
+        push @results, $bland_error_message;
+        $show_form = 0;
+    }
+}
+
+my $token;
+my $u = RT::User->new($RT::SystemUser);
+if ($show_form) {
+    # Validate the token
+    $u->LoadByCols( id => $id );
+    if ( $u->id ) {
+        $token = RT::Extension::ResetPassword::CreateToken($u) || '';
+    }
+    else {
+        push @results,
+            loc("Something went wrong. Please contact your RT administrator.");
+        $show_form = 0;
+    }
 }
 
 # Calculate time difference between now and when user object was updated
@@ -37,44 +79,48 @@ if (!defined($age)) {
     }
 }
 
-# If the token validation fails, throw them an error
-if ( $submitted_token ne $token ) {
-    push @results,
-        loc(
-        "It looks like the URL you clicked on has expired or wasn't quite right. Maybe you didn't paste the whole thing?"
-        );
-    $show_form = 0;
-}
-
-# If the link has expired, throw the same error.  Default expiry time is 4 hours
-elsif ( ($age < 0) ||
-        ($age > (RT->Config->Get('PasswordChangeLinkExpirySeconds') || (4*60*60)))) {
-    push @results,
-        loc(
-        "It looks like the URL you clicked on has expired or wasn't quite right. Maybe you didn't paste the whole thing?"
-        );
-    $show_form = 0;
-}
-
-# Link is valid and has not expired
-else {
-
-    # If they've supplied a new password twice, change it and redirect to home
-    if (    ( $submitted_token eq $token )
-        and $ARGS{'password'}
-        and $ARGS{'password2'}
-        and ( $ARGS{'password'} eq $ARGS{'password2'} ) )
-    {
-        my ( $val, $msg ) = $u->SetPassword( $ARGS{'password'} );
-        push @results, $msg;
-        if ($val) { $show_form = 0;}
+if ($show_form) {
+    # If the token validation fails, throw them an error
+    if ( $submitted_token ne $token ) {
+        push @results, $bland_error_message;
+        $show_form = 0;
     }
-    elsif ( $ARGS{'password'} ) {
-        push @results, loc("The two passwords you typed didn't match.");
+    # If the link has expired, throw the same error.  Default expiry time is 4 hours
+    elsif ( ($age < 0) ||
+            ($age > (RT->Config->Get('PasswordChangeLinkExpirySeconds') || (4*60*60)))) {
+        push @results, $bland_error_message;
+        $show_form = 0;
     }
+    # Link is valid and has not expired
+    else {
+        # If they've supplied a new password twice, change it and redirect to home
+        if (    ( $submitted_token eq $token )
+                and $ARGS{'password'}
+                and $ARGS{'password2'}
+                and ( $ARGS{'password'} eq $ARGS{'password2'} ) )
+        {
+            my ( $val, $msg ) = $u->SetPassword( $ARGS{'password'} );
+            push @results, $msg;
+            if ($val) { $show_form = 0;}
+            # Ask the browser to delete the cookie
+            my $cookie = CGI::Cookie->new(
+                -name     => $cookie_name,
+                -value    => '',
+                -expires  => '-10y',
+                -path     => RT->Config->Get('WebPath'),
+                -secure   => (RT->Config->Get('WebSecureCookies') ? 1 : 0),
+                -httponly => (RT->Config->Get('WebHttpOnlyCookies') ? 1 : 0)
+                );
+            $r->err_headers_out->{'Set-Cookie'} = $cookie->as_string;
 
+        }
+        elsif ( $ARGS{'password'} ) {
+            push @results, loc("The two passwords you typed didn't match.");
+        }
+    }
 }
-# otherwise, show the form
+
+# otherwise, (potentially) show the form
 
 
 </%init>
@@ -101,4 +147,4 @@ else {
 <input type ="submit" value ="<%loc('Change password')%>">
 </form>
 %}
-<a href="<%$RT::WebURL|n%>"><&|/l&>Login</&></a>
+<a href="<% RT->Config->Get('WebPath') %>"><&|/l&>Login</&></a>

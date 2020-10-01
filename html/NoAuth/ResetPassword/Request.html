@@ -46,21 +46,61 @@
 <& /Elements/Header, Title => $title &>
 <div id="body" class="login-body">
 
+% if ( RT::Handle::cmp_version($RT::VERSION, '5.0.0') >= 0 ) {
+<& /Elements/ListActions, actions => \@actions &>
+
+<form action="Request.html" method="post" class="mx-auto max-width-sm">
+
+% my $title_box_title;
+% if ( $Mode eq 'create' ) {
+%     $title_box_title = loc("Enter your email address to create a new account");
+% }
+% else {
+%     $title_box_title = loc("Enter your email address to reset your password");
+% }
+
+<&| /Widgets/TitleBox, title => $title_box_title, hideable => 0, content_class => 'mx-auto col-12', class => 'text-center' &>
+  <div class="form-row">
+% if ( $Mode eq 'reset' ) {
+      <p class="col-12 text-center"><i><&|/l&>RT can send you an email with a link that will allow you to reset your password.</&></i></p>
+% }
+  </div>
+  <div class="form-row">
+    <div class="label col-3">
+      <&|/l&>Email address</&>:
+    </div>
+    <div class="value col-8">
+      <input type="text" class="form-control" name="Email" value="" />
+    </div>
+  </div>
+</&>
+  <div class="form-row">
+    <div class="col-12">
+      <a class="btn btn-primary float-left" href="<%$RT::WebURL|n%>"><&|/l&>Back to Login</&></a>
+      <input class="button btn btn-primary form-control float-right" type="submit" value="<%loc('Send it!')%>" />
+    </div>
+  </div>
+
+</form>
+% }
+% else {
 <h1><%$title%></h1>
 <& /Elements/ListActions, actions => \@actions  &>
 <p>
 % if ( $Mode eq 'create' ) {
 <&|/l&>Enter your email address to create a new account.</&>
 % } else {
-<&|/l&>RT can send you an email message with a link that will allow you to reset your password.</&>
+<&|/l&>RT can send you an email with a link that will allow you to reset your password.</&>
 % }
 <form method="post" action="Request.html">
     <&|/l&>Email address</&>:<input name="Email" value="" />
     <input type="submit" class="button" value="<%loc('Send it!')%>" />
 </form>
-    <a href="<%$RT::WebURL|n%>"><&|/l&>Login</&></a>
+    <a href="<%$RT::WebURL|n%>"><&|/l&>Back to Login</&></a>
+% }
 </div>
 
+<& /Elements/Footer, Menu => 0 &>
 <%INIT>
 my @actions;
 

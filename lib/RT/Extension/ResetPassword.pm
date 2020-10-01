@@ -52,7 +52,7 @@ and disable self-service features.
 
 =head1 RT VERSION
 
-Works with RT 4.0, 4.2, 4.4
+Works with RT 4.0, 4.2, 4.4, 5.0
 
 =head1 INSTALLATION
 

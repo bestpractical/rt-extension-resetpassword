@@ -1,8 +1,8 @@
 % unless ( RT::Config->Get('DisableResetPasswordOnLogin') ) {
 % if ( RT::Handle::cmp_version($RT::VERSION, '5.0.0') >= 0 ) {
   <div class="form-row">
-    <div class="col-12 text-right">
-      <a class="btn btn-primary" href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html"><&|/l&>Forgot your password</&></a>
+    <div class="col-12 text-center">
+      <a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html"><&|/l&>Forgot password</&>?</a>
 %     if ( RT::Config->Get('CreateNewUserAndSetPassword') ) {
       <a class="btn btn-primary" href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html?Mode=create"><&|/l&>New account</&></a>
 %     }

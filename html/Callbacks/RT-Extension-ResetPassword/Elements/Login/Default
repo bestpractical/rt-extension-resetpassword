@@ -4,7 +4,7 @@
     <div class="col-12 text-center">
       <a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html"><&|/l&>Forgot password</&>?</a>
 %     if ( RT::Config->Get('CreateNewUserAndSetPassword') ) {
-      <a class="btn btn-primary" href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html?Mode=create"><&|/l&>New account</&></a>
+        <span>&nbsp;&#8226;&nbsp;</span><a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html?Mode=create"><&|/l&>New account</&></a>
 %     }
     </div>
   </div>
@@ -13,7 +13,7 @@
   <div id="lostpassword" class="input-row" style="text-align:center;clear:both;">
     <a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html"><&|/l&>Forgot your password</&></a>
 %     if ( RT::Config->Get('CreateNewUserAndSetPassword') ) {
-    | <a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html?Mode=create"><&|/l&>New account</&></a>
+     <span>&nbsp;&#8226;&nbsp;</span><a href="<%$RT::WebPath%>/NoAuth/ResetPassword/Request.html?Mode=create"><&|/l&>New account</&></a>
 %     }
   </div>
 % }

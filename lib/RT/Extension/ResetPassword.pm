@@ -5,7 +5,7 @@ use warnings;
 
 use Digest::SHA qw(sha256_hex);
 
-our $VERSION = '1.08';
+our $VERSION = '1.09';
 
 RT->AddStyleSheets("resetpassword.css");
 

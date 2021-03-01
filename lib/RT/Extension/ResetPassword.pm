@@ -206,9 +206,10 @@ Setting this to false (0) requires a user to already have a password
 to use the reset feature. This is useful for managing access and
 not automatically allowing new accounts to get a password.
 
-This extension adds a "Delete password" option to the user admin
-page to allow you to clear passwords if a user should no longer have
-access.
+This extension adds a "Password Status" at the bottom of the Access control
+section on the user admin page which shows whether the user currently
+has a password set. The "Delete password" option allows you to clear
+passwords if a user should no longer have access.
 
 =item C<$CreateNewUserAsPrivileged>
 

@@ -1,0 +1,31 @@
+commit 6eef10d5861d11543ec2af521328217dea8b628d
+Author: Jim Brandt <jbrandt@bestpractical.com>
+Date:   Mon Apr 12 17:16:10 2021 -0400
+
+    Add callbacks to user admin index page
+    
+    These allow a developer to add a custom component to the
+    form and then act on it in the init section.
+
+diff --git a/share/html/Admin/Users/index.html b/share/html/Admin/Users/index.html
+index c254df74df..d73105c961 100644
+--- a/share/html/Admin/Users/index.html
++++ b/share/html/Admin/Users/index.html
+@@ -77,6 +77,8 @@ jQuery(function(){
+ <&|/l&>Find all users whose</&> <& /Elements/SelectUsers, %ARGS, Fields => \@fields &><br />
+ <input type="checkbox" class="checkbox" id="FindDisabledUsers" name="FindDisabledUsers" value="1" <% $FindDisabledUsers? 'checked="checked"': '' %> />
+ <label for="FindDisabledUsers"><&|/l&>Include disabled users in search.</&></label>
++% $m->callback( %ARGS, UsersObj => $users, CallbackName => 'InUsersAdminForm' );
++
+ <br />
+ <div align="right"><input type="submit" class="button" value="<&|/l&>Go!</&>" /></div> 
+ </form>
+@@ -104,6 +106,8 @@ my $caption;
+ my $users = RT::Users->new( $session{'CurrentUser'} );
+ $users->FindAllRows if $FindDisabledUsers;
+ 
++$m->callback( UsersObj => $users, ARGSRef => \%ARGS, CallbackName => 'Initial' );
++
+ if ( defined($UserString) && length $UserString ) {
+     $caption = loc("Users matching search criteria");
+     if ( $UserField =~ /^CustomField-(\d+)/ ) {

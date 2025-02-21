@@ -7,8 +7,6 @@ use Digest::SHA qw(sha256_hex);
 
 our $VERSION = '1.12';
 
-RT->AddStyleSheets("resetpassword.css");
-
 sub CreateToken {
     my $user = shift;
 

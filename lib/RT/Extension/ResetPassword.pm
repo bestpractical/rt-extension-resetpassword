@@ -5,7 +5,7 @@ use warnings;
 
 use Digest::SHA qw(sha256_hex);
 
-our $VERSION = '1.12';
+our $VERSION = '2.00';
 
 sub CreateToken {
     my $user = shift;

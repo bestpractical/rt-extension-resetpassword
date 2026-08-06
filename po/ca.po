@@ -1,0 +1,42 @@
+# Catalan translation for RT-Extension-ResetPassword
+# Copyright (c) 2018 Omega Software
+# This file is distributed under the same license as the RT-Extension-ResetPassword package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rt\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2015-02-26 18:21+0000\n"
+"PO-Revision-Date: 2018-04-29 16:03+0200\n"
+"Last-Translator: Omega Software <development@omega-software.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Language-Team: \n"
+
+#: share/request-tracker4/plugins/RT-Extension-ResetPassword/html/Callbacks/RT-Extension-ResetPassword/Elements/Login/Default:2
+msgid "Forgot your password?"
+msgstr "Heu oblidat la vostra contrasenya?"
+
+#: share/request-tracker4/plugins/RT-Extension-ResetPassword/html/NoAuth/ResetPassword/Request.html:52
+msgid "RT can send you an email message with a link that will allow you to reset your password."
+msgstr "RT pot enviar-vos un missatge de correu electrònic amb un enllaç que us permetrà reiniciar la vostra contrasenya."
+
+#: share/request-tracker4/plugins/RT-Extension-ResetPassword/html/NoAuth/ResetPassword/Request.html:52
+msgid "Email address"
+msgstr "Adreça de correu electrònic"
+
+#: share/request-tracker4/plugins/RT-Extension-ResetPassword/html/NoAuth/ResetPassword/Request.html:52
+msgid "Send it!"
+msgstr "Envia'l!"
+
+#: share/request-tracker4/plugins/RT-Extension-ResetPassword/html/NoAuth/ResetPassword/Request.html:52
+msgid "Reset your password"
+msgstr "Reinicieu la vostra contrasenya"
+
+#: share/request-tracker4/plugins/RT-Extension-ResetPassword/html/NoAuth/ResetPassword/Request.html:86
+#: share/request-tracker4/plugins/RT-Extension-ResetPassword/html/NoAuth/ResetPassword/Request.html:104
+msgid "RT has sent you an email message with instructions about how to reset your password"
+msgstr "RT us ha enviat un missatge de correu electrònic amb instruccions sobre com reiniciar la vostra contrasenya"
